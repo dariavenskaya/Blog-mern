@@ -5,7 +5,7 @@ import cors from 'cors'
 import { registerValidation, loginValidation, postCreacteValidation } from './validations.js'
 import checkAuth from './utils/checkAuth.js'
 import { register, login, getMe } from './controllers/UserController.js'
-import { create, getAll, getOne, remove, update } from './controllers/PostController.js'
+import { create, getAll, getLastTags, getOne, remove, update } from './controllers/PostController.js'
 import handleValidationErrors from "./utils/handleValidationErrors.js";
 
 const app = express();
@@ -41,7 +41,10 @@ app.post('/auth/login', loginValidation, handleValidationErrors, login)
 app.get('/auth/me', checkAuth, getMe)
 app.post('/auth/register', registerValidation, handleValidationErrors, register)
 
+app.get('/tags', getLastTags);
+
 //posts
+app.get('/posts/tags', getLastTags);
 app.get('/posts', getAll);
 app.get('/posts/:id', getOne);
 app.post('/posts', checkAuth, postCreacteValidation, handleValidationErrors, create);
